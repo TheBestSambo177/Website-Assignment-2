@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<!------------------------------HEAD------------------------------------------------>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Phone Booking</title>
+	<!--Embed bootstrap 5 CSS-->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" >
+	<!--Link to our own CSS style file-->
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+	<header class="text-white bg-dark row">
+		<section class="col-12 col-md-12 col-lg-8 text-center border border-primary">
+			<h2>Phone Fix Booking System</h2>
+		</section>
+		<nav class="col-12 col-md-12 col-lg-4 border border-secondary row">
+			<button class="col-12 col-md-6 col-lg-6 btn btn-warning">Home</button>
+			<button class="col-12 col-md-6 col-lg-6 btn btn-info">Extension</button>
+		</nav>
+	</header>
+
+	<main>
+		<form>
+			<!--Customer detail-->
+			<section>
+				<button onclick="loadJSONFile()">Load JSON File</button>
+				<div id="json-data"></div>
+			</section>
+			
+			<!--Repair detail-->
+			<section>
+			
+			</section>
+			
+			<!--Courtesy detail-->
+			<section>
+			
+			</section>
+			
+			<!--Cost detail-->
+			<section>
+			
+			</section>
+			
+			<!--Buttons-->
+			<section>
+			
+			</section>
+		</form>
+	</main>
+
+
+	<footer class="mt-auto text-white bg-dark text-center p-3">
+		<p>Advanced Web Design and Development. Copyright @2022</p>
+	</footer>
+	
+	<!--Embed Bootstrap-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>	
+	
+	<!--Embed JS-->
+	<script src="js/javascript.js"></script>		
+</body>
+</html>
