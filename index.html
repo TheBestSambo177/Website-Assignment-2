@@ -13,43 +13,70 @@
 
 <body class="d-flex flex-column min-vh-100">
 
-	<header class="text-white bg-dark row">
-		<section class="col-12 col-md-12 col-lg-8 text-center border border-primary">
-			<h2>Phone Fix Booking System</h2>
-		</section>
-		<nav class="col-12 col-md-12 col-lg-4 border border-secondary row">
-			<button class="col-12 col-md-6 col-lg-6 btn btn-warning">Home</button>
-			<button class="col-12 col-md-6 col-lg-6 btn btn-info">Extension</button>
-		</nav>
+	<header class="text-white bg-dark">
+		<div class="container-fluid text-center">
+			<div class="row">
+
+				<!--Header Title-->
+				<div class="col-12 col-lg-8 p-4" style="background-color:#283442;">
+					<h2>Phone Fix Booking System</h2>
+				</div>
+
+				<!--Nav Buttons-->
+				<nav class="col-12 col-md-12 col-lg-4 p-2" style="background-color:#283442;">
+					<div class="row">
+					<button class="col-12 col-md-12 col-lg-6" style="background-color: #8eb369">Home</button>
+					<button class="col-12 col-md-12 col-lg-6" style="background-color: #5d9698">Extension</button>
+					</div>
+				</nav>
+			</div>
+		</div>
 	</header>
 
 	<main>
 		<form>
-			<!--Customer detail-->
-			<section>
-				<button onclick="loadJSONFile()">Load JSON File</button>
-				<div id="json-data"></div>
-			</section>
-			
-			<!--Repair detail-->
-			<section>
-			
-			</section>
-			
-			<!--Courtesy detail-->
-			<section>
-			
-			</section>
-			
-			<!--Cost detail-->
-			<section>
-			
-			</section>
-			
-			<!--Buttons-->
-			<section>
-			
-			</section>
+			<div class="container-fluid">
+				<div class="row">
+					<!--Customer detail-->
+					<div class="col-12 col-md-4 p-8" style="min-height: 80vh; background-color: #fce0bb">
+						<section>
+							<h2>Customer Details</h2>
+							<button onclick="loadJSONFile()">Load JSON File</button>
+							<div id="json-data"></div>
+						</section>
+					</div>
+					
+					<div class="col-12 col-md-4 p-8" style="min-height: 80vh; background-color: #edffff">
+						<!--Repair detail-->
+						<section>
+							<h2>Repair Details</h2>
+						</section>
+					</div>
+					
+					<div class="col">
+						<div class="row p-5" style="min-height: 40vh; background-color: #5e9598">
+							<!--Courtesy detail-->
+							<section>
+								<h2>Courtesy Phone</h2>
+							</section>
+						</div>
+						
+						<div class="row p-5" style="min-height: 40vh; background-color: #e08a6f">
+						<!--Cost detail-->
+						<section>
+							<h2>Cost</h2>
+						</section>
+						</div>
+					</div>
+					
+					<div class="col-12 p-2 text-center" style=" background-color: #e08a6f">
+						<!--Buttons-->
+						<section>
+							<p>Stuff</p>
+						</section>
+					</div>
+				</div>
+			</div>
 		</form>
 	</main>
 
