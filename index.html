@@ -47,23 +47,25 @@
 								<!--row mb-3 border border-dark-->
 
 								<!--Radio-->
-								<fieldset class="border border-dark p-2">
-									<legend class="float-none w-auto p-2">Customer Type:</legend>
-									<div class="form-check form-check-inline">
-										<label class="form-check-label" for="gridRadios1">Consumer</label>
-										<input type="radio" name="gridRadios" id="gridRadios1" value="option1" required>
-									</div>
+								<div class="row mb-3">
+									<fieldset class="border border-dark p-2 ms-2 me-4 col-lg-11">
+										<legend class="float-none w-auto p-2">Customer Type *</legend>
+										<div>
+											<label class="col-4 col-md-2 col-lg-2" for="gridRadios1">Consumer</label>
+											<input type="radio" name="customer-type" id="customerType" value="customer" required>
+										</div>
 
-									<div class="form-check form-check-inline">
-										<label class="form-check-label" for="gridRadios2">Business</label>
-										<input type="radio" name="gridRadios" id="gridRadios2" value="option2" required>
-									</div>	
-								</fieldset>
+										<div>
+											<label class="col-4 col-md-2 col-lg-2" for="gridRadios2">Business</label>
+											<input type="radio" name="business-type" id="businessType" value="option2" required>
+										</div>	
+									</fieldset>
+								</div>
 
-								<br>
+								
 								<!--DropDown-->
 								<div class="row mb-3">
-									<label for="title" class="col-sm-4 col-form-label">Title:*</label>
+									<label for="title" class="col-sm-4 col-form-label">Title: *</label>
 									<div class="col-sm-8">
 										<select class="form-select" id="title" name="title">
 											<option value="Mr">Mr</option>
@@ -77,21 +79,21 @@
 								
 								<!--Text input-->
 								<div class="row mb-3">
-									<label for="fName" class="col-sm-4 col-form-label">First Name:*</label>
+									<label for="fName" class="col-sm-4 col-form-label">First Name: *</label>
 									<div class="col-sm-8">
 										<input type="text" class="form-control" id="fName" name="fName" required>
 									</div>
 								</div>
 
 								<div class="row mb-3">
-									<label for="lName" class="col-sm-4 col-form-label">Last Name:*</label>
+									<label for="lName" class="col-sm-4 col-form-label">Last Name: *</label>
 									<div class="col-sm-8">
 										<input type="text" class="form-control" id="lName" name="lName" required>
 									</div>
 								</div>
 
 								<div class="row mb-3">
-									<label for="street" class="col-sm-4 col-form-label">Street:*</label>
+									<label for="street" class="col-sm-4 col-form-label">Street: *</label>
 									<div class="col-sm-8">
 										<input type="text" class="form-control" id="street" name="street" required>
 									</div>
@@ -104,6 +106,34 @@
 									</div>
 								</div>
 
+								<div class="row mb-3">
+									<label for="city" class="col-sm-4 col-form-label">City: *</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" id="city" name="city" required>
+									</div>
+								</div>
+
+								<div class="row mb-3">
+									<label for="postalCode" class="col-sm-4 col-form-label">Postal Code:</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" id="postalCode" name="postalCode">
+									</div>
+								</div>
+
+								<div class="row mb-3">
+									<label for="phoneNumber" class="col-sm-4 col-form-label">Phone Number: *</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" id="phoneNumber" name="phoneNumber" required>
+									</div>
+								</div>
+
+								<div class="row mb-3">
+									<label for="email" class="col-sm-4 col-form-label">Email: *</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" id="email" name="email" required>
+									</div>
+								</div>
+
 							</div>
 						</section>
 					</div>
@@ -112,13 +142,89 @@
 					<div class="col-12 col-md-12 col-lg-4" style="min-height: 80vh; background-color: #edffff">
 						<!--Repair detail-->
 						<section>
-							<h2>Repair Details</h2>
-							<div class="row mb-3">
-								<label for="inputName1" class="col-sm-2 col-form-label">First Name: </label>
-								<div class="col-sm-10">
-								  <input type="text" class="form-control" id="inputName2" required minlength="3">
+							<div class="container-fluid">
+								<h2>Repair Details</h2>
+								<div class="row mb-3">
+									<label for="purchaseDate" class="col-sm-4 col-form-label">Purchase Date: * </label>
+									<div class="col-sm-8">
+									<input type="text" class="form-control" id="purchaseDate" required minlength="3">
+									</div>
 								</div>
-							</div>
+
+								<div class="row mb-3">
+									<label for="repairDate" class="col-sm-4 col-form-label">Repair Date: * </label>
+									<div class="col-sm-8">
+									<input type="text" class="form-control" id="repairDate" required minlength="3">
+									</div>
+								</div>
+
+
+								<!--Under Warranty CheckBox-->
+								<div class="row mb-3">
+									<fieldset class="border border-dark p-2 ms-2 me-4 col-lg-12">
+										<legend class="col-11 float-none w-auto">Under Warranty</legend>									
+										<div>
+											<label class="col-4 col-md-12 col-lg-2">Customer</label>
+											<input type="checkbox" id="warranty">						
+										</div>
+									</fieldset>				
+								</div>
+								
+								<div class="row mb-3">
+									<label for="IMEI_Number" class="col-sm-4 col-form-label">IMEI Number: * </label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" id="IMEI_Number" required minlength="3">
+									</div>
+								</div>
+
+								<!--DropDown for make-->
+								<div class="row mb-3">
+									<label for="make" class="col-sm-4 col-form-label">Make: *</label>
+									<div class="col-sm-8">
+										<select class="form-select" id="make" name="make">
+											<option value="Apple">Apple</option>
+											<option value="LG">LG</option>
+											<option value="Motorola">Motorola</option>
+											<option value="Nokia">Nokia</option>
+											<option value="Samsung">Samsung</option>
+											<option value="Sony">Sony</option>
+											<option value="Other">Other</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="row mb-3">
+									<label for="modelNumber" class="col-sm-4 col-form-label">Model Number:</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" id="modelNumber">
+									</div>
+								</div>
+
+								<!--DropDown for fault category-->
+								<div class="row mb-3">
+									<label for="faultCategory" class="col-sm-4 col-form-label">Fault Category: *</label>
+									<div class="col-sm-8">
+										<select class="form-select" id="faultCategory" name="faultCategory">
+											<option value="Battery">Battery</option>
+											<option value="Charging">Charging</option>
+											<option value="Screen">Screen</option>
+											<option value="SD-storage">SD-storage</option>
+											<option value="Software">Software</option>
+											<option value="Other">Other</option>
+										</select>
+									</div>
+								</div>
+
+
+								<div class="row mb-3">
+									<label for="description" class="col-sm-4 col-form-label">Description: *</label>
+									<div class="col-sm-8">
+									  <textarea class="form-control" id="description" rows="8"></textarea>
+									</div>
+								  </div>
+
+
+							</div>	
 						</section>
 					</div>
 					
