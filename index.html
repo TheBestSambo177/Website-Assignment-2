@@ -51,16 +51,18 @@
 									<fieldset class="border border-dark p-2 ms-2 me-4 col-lg-11">
 										<legend class="float-none w-auto p-2">Customer Type *</legend>
 										<div>
-											<label class="col-4 col-md-2 col-lg-2" for="gridRadios1">Consumer</label>
-											<input type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+											<label class="col-4 col-md-2 col-lg-2">Consumer</label>
+											<input type="radio" id="customerType" name="customer-type" value="customer" checked>	
 										</div>
 
 										<div>
 											<label class="col-4 col-md-2 col-lg-2" for="gridRadios2">Business</label>
-											<input type="radio" name="gridRadios" id="gridRadios2" value="option2" >
+											<input type="radio" id="businessType" name="customer-type" value="business">	
 										</div>	
 									</fieldset>
 								</div>
+
+							
 
 								
 								<!--DropDown-->
@@ -219,7 +221,7 @@
 								<div class="row mb-3">
 									<label for="description" class="col-sm-4 col-form-label">Description: *</label>
 									<div class="col-sm-8">
-									  <textarea class="form-control" id="description" rows="8"></textarea>
+									  <textarea class="form-control" id="description" rows="8" style="resize: none"></textarea>
 									</div>
 								  </div>
 
@@ -238,13 +240,32 @@
 									<label for="itemType" class="col-sm-4 col-form-label">Item Type: </label>
 									<div class="col-sm-8">
 										<select class="form-select" id="itemType" name="itemType">
-											<option value="iPhones">iPhones</option>
-											<option value="OtherPhones">Other Phones</option>
-											<option value="Chargers">Chargers</option>
+											<option value="iPhone" selected>iPhones</option>
+											<option value="otherPhone">Other Phones</option>
+											<option value="charger">Chargers</option>
 										</select>
 									</div>
 								</div>
 
+								<!--Two buttons: Add, Remove-->
+								<div class="row mt-2">
+									<div class="col-6 text-center">
+										<button class="btn-border btn-warning p-1 w-50" id="addBtn">ADD</button>
+									</div>
+									<div class="col-6 text-center">
+										<button class="btn-border btn-danger p-1 w-50" id="removeBtn">REMOVE</button>
+									</div>					
+								</div>
+
+								<!--Table of added Courtesy items-->
+								<div class="row mt-2 ms-3 me-3 bg-white">
+									<table class="table table-bordered" id="borrowItems">
+										<tr>
+											<td>Item</td>
+											<td>Cost</td>
+										</tr>																			  
+									</table>						
+								</div>	
 
 							</section>
 						</div>
@@ -255,37 +276,37 @@
 							<h2>Cost</h2>
 
 							<div class="row mb-3">
-								<label for="bond" class="col-sm-4 col-form-label">Bond:  </label>
+								<label for="bond" class="col-sm-4 col-form-label">Bond ($):  </label>
 								<div class="col-sm-8">
-								<input type="text" class="form-control" id="bond" required minlength="3">
+								<input type="text" class="form-control" id="bond" value="0.00" readonly>
 								</div>
 							</div>
 
 							<div class="row mb-3">
-								<label for="serviceFee" class="col-sm-4 col-form-label">Service Fee:  </label>
+								<label for="serviceFee" class="col-sm-4 col-form-label">Service Fee ($):  </label>
 								<div class="col-sm-8">
-								<input type="text" class="form-control" id="serviceFee" required minlength="3">
+								<input type="text" class="form-control" id="serviceFee" value="85.00" readonly>
 								</div>
 							</div>
 
 							<div class="row mb-3">
-								<label for="total" class="col-sm-4 col-form-label">Total:  </label>
+								<label for="total" class="col-sm-4 col-form-label">Total ($):  </label>
 								<div class="col-sm-8">
-								<input type="text" class="form-control" id="total" required minlength="3">
+								<input type="text" class="form-control" id="total" value="0.00" readonly>
 								</div>
 							</div>
 
 							<div class="row mb-3">
-								<label for="GST" class="col-sm-4 col-form-label">GST:  </label>
+								<label for="GST" class="col-sm-4 col-form-label">GST ($):  </label>
 								<div class="col-sm-8">
-								<input type="text" class="form-control" id="GST" required minlength="3">
+								<input type="text" class="form-control" id="GST" value="0.00" readonly>
 								</div>
 							</div>
 
 							<div class="row mb-3">
-								<label for="total+GST" class="col-sm-4 col-form-label">Total(+GST):  </label>
+								<label for="total+GST" class="col-sm-4 col-form-label">Total(+GST) ($):  </label>
 								<div class="col-sm-8">
-								<input type="text" class="form-control" id="total+GST" required minlength="3">
+								<input type="text" class="form-control" id="total+GST" value="0.00" readonly>
 								</div>
 							</div>
 
@@ -315,6 +336,9 @@
 	<!--Embed Bootstrap-->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>	
 	
+	<!--Embed JQUERY library-->
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>	
+
 	<!--Embed JS-->
 	<script src="js/javascript.js"></script>		
 </body>
