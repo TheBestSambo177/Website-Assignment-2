@@ -89,4 +89,12 @@ $('#removeBtn').click(function(e){
 });
 
 //Change "customer type" event
-//$('#customerType').click();
+$('#customerType').click(function() {
+	appState.customerType = 'customer';
+	$('#bond').val(appState.courtesyPhone.bond + appState.courtesyCharger.bond);
+});
+
+$('#businessType').click(function() {
+	appState.customerType = 'business';
+	$('#bond').val(0)
+});
