@@ -174,3 +174,28 @@ $('.btn-demo-area button').on('click', function(){
 	//Show only the content area matching to the clicked button
 	$('.content-demo-area div').eq($(this).index()).show(1000);
 });
+
+//Use Local Storage API to store and retrieve the above preferences: bg-color & font-size
+		//On client side and store it permanently
+		//Link: LocalStorage API: https://www.w3schools.com/jsref/prop_win_localstorage.asp
+		$('#colorOption').change(function(){
+			let selectedColor = $(this).find(":selected").val();
+			$('#customization-card').css('background-color', selectedColor);
+			localStorage.setItem('color-preference', selectedColor);
+		});
+		
+		//Font size
+		$('#sizeOption').change(function(){
+			let selectedSize = $(this).find(":selected").val();
+			$('#customization-card').css('font-size', selectedSize);
+			localStorage.setItem('font-preference', selectedSize);
+		});
+		
+		//Retrive stored preferences
+		$('#customization-card').css('background-color', localStorage.getItem('color-preference'));
+		$('#customization-card').css('font-size', localStorage.getItem('font-preference'));
+		
+		//Use Session Storage API to store and retrieve the above preferences: bg-color & font-size
+		//On client side and store temporarily, will be cleared when the tab or window is closed.
+		//Link: SessionStorage API: https://www.w3schools.com/jsref/prop_win_sessionstorage.asp
+		
