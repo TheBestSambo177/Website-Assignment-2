@@ -1,3 +1,6 @@
+//Sets the total to the starting value
+$('#total').val('85.00');
+
 //Warranty
 $('#warranty').change(function() {
 	if ( $(this).is(":checked")) {
@@ -6,8 +9,6 @@ $('#warranty').change(function() {
 		$('#serviceFee').val('85.00');
 	}
 });
-
-
 
 let courtesyList = [{item: 'iPhone', bond: 275},
 					{item: 'otherPhone', bond: 100},
@@ -20,6 +21,7 @@ let appState = {customerType: 'customer',
 				courtesyCharger: {item: 'none', bond: 0}//Allow to borrow ONLY 1 charger
 			  };	
 
+			  
 
 //Click "Add" button Event
 $('#addBtn').click(function(e) {
@@ -97,4 +99,78 @@ $('#customerType').click(function() {
 $('#businessType').click(function() {
 	appState.customerType = 'business';
 	$('#bond').val(0)
+});
+
+
+//Prevent Future Date
+$(document).ready(function () {
+	var today = new Date();
+	var day=today.getDate()>9?today.getDate():"0"+today.getDate(); 
+	var month=(today.getMonth()+1)>9?(today.getMonth()+1):"0"+(today.getMonth()+1);
+	var year=today.getFullYear();
+
+	$("#purchaseDate").attr('max', year + "-" + month + "-" + day);
+	$("#repairDate").attr('max', year + "-" + month + "-" + day);
+});
+
+
+//JQUERY: FAQ SCRIPTS
+let proxy = 'https://cors-anywhere.herokuapp.com/';
+let url = 'http://danieldangs.com/itwd6408/json/faqs.json';
+
+//User Jquery function "getJSON" to query this json file.
+$.getJSON(
+	proxy + url,//send request to this url to get Json file
+	function(data){
+		//Loop through all questions and extract them and
+		//Display them on webpage
+		$.each(data, function(i, question){//i: index, question
+			//Extract question and answer
+			let content =`
+				<div class="col-12 col-md-6 bg-warning border border-dark">
+					
+						<h4>${question.question}</h4>
+						<p>${question.answer}</p>
+					</div>
+					
+				
+				`;
+				//append this question to the list
+				$('#questions').append(content);
+		});
+	}//json file will be returned in "data"
+);
+
+//Search function
+$('#search-box').on('keyup', function(){
+	//Get entered keywords
+	let keywords = $(this).val().toLowerCase();
+	//Loop through all questions/answers and find if this question/answer
+	//contain the keyword? If yes, if not, hide it.
+
+	$('#questions div').filter(function(){
+		$(this).toggle($(this).html().toLowerCase().indexOf(keywords) > -1);
+	});
+});
+
+
+//Initially hide all advanced
+$('.content-demo-area div').hide();
+
+
+//Loop through all buttons and add "click" event to each of them
+//and also the logic: hide all content sections and show only the according
+//highlight background the clicked button
+$('.btn-demo-area button').on('click', function(){
+	//Set all buttons background to white
+	$('.btn-demo-area button').css('background-color', 'white');
+
+	//Set the clicked button background to "orange" color
+	$(this).css('background-color', 'orange');
+
+	//Hide all the content areas
+	$('.content-demo-area div').hide();
+
+	//Show only the content area matching to the clicked button
+	$('.content-demo-area div').eq($(this).index()).show(1000);
 });
