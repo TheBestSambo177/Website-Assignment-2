@@ -1,256 +1,197 @@
 //Sets the service fee at the start
-$('#serviceFee').val('85.00');
+$("#serviceFee").val("85.00");
 
 //Warranty
-$('#warranty').change(function() {
-	if ( $(this).is(":checked")) {
-		$('#serviceFee').val('0.00');
-	} else {
-		$('#serviceFee').val('85.00');
-	}
+$("#warranty").change(function () {
+    if ($(this).is(":checked")) {
+        $("#serviceFee").val("0.00");
+    } else {
+        $("#serviceFee").val("85.00");
+    }
 });
 
-let courtesyList = [{item: 'iPhone', bond: 275},
-					{item: 'otherPhone', bond: 100},
-					{item: 'charger', bond: 30}
-				   ];
-				   
-//We will use "appState" object to track the form change when users interact with the app			   
-let appState = {customerType: 'customer',
-				courtesyPhone: {item: 'none', bond: 0 },//Allow to borrow ONLY 1 phone
-				courtesyCharger: {item: 'none', bond: 0}//Allow to borrow ONLY 1 charger
-			  };	
+let courtesyList = [
+    { item: "iPhone", bond: 275 },
+    { item: "otherPhone", bond: 100 },
+    { item: "charger", bond: 30 },
+];
 
-			  
+//We will use "appState" object to track the form change when users interact with the app
+let appState = {
+    customerType: "customer",
+    courtesyPhone: { item: "none", bond: 0 }, //Allow to borrow ONLY 1 phone
+    courtesyCharger: { item: "none", bond: 0 }, //Allow to borrow ONLY 1 charger
+};
 
 //Click "Add" button Event
-$('#addBtn').click(function(e) {
-	//Prevent all the default function of the "add" button
-	e.preventDefault();
+$("#addBtn").click(function (e) {
+    //Prevent all the default function of the "add" button
+    e.preventDefault();
 
-	//Get the selected item
-	let selectedItemText = $('#itemList').find(":selected").text();
-	let selectedItemValue = $('#itemList').find(":selected").val();
-	let selectedItemBond = courtesyList.find(foundItem => foundItem.item.toLowerCase() == selectedItemValue.toLowerCase()).bond;
-	
-	
-	//Build HTML code of this item
-	let newRow = `
+    //Get the selected item
+    let selectedItemText = $("#itemList").find(":selected").text();
+    let selectedItemValue = $("#itemList").find(":selected").val();
+    let selectedItemBond = courtesyList.find((foundItem) => foundItem.item.toLowerCase() == selectedItemValue.toLowerCase()).bond;
+
+    //Build HTML code of this item
+    let newRow = `
 				<tr class="newSelectedItem">
 					<td>${selectedItemText}</td>
 					<td>${selectedItemBond}</td>
 				</tr>			
 				`;
 
-	//Append this new row to table if it's not existing
-	if(appState.courtesyPhone.item == "none" && selectedItemValue.toLowerCase().includes("phone")){
-		//Add a new row
-		$('#borrowItems').append(newRow);
-		//Update the appState
-		appState.courtesyPhone.item = selectedItemValue;
-		appState.courtesyPhone.bond = selectedItemBond;
-		//Update the "bond" element
-		if($('#customerType').is(':checked')){
-			$('#bond').val(appState.courtesyPhone.bond + appState.courtesyCharger.bond);
-		} else {
-			$('#bond').val(0);
-		}
-		
-	} else if (appState.courtesyCharger.item == "none" && selectedItemValue.toLowerCase().includes("charger")){
-		$('#borrowItems').append(newRow);
-		//Update the appState 
-		appState.courtesyCharger.item = selectedItemValue;
-		appState.courtesyCharger.bond = selectedItemBond;
+    //Append this new row to table if it's not existing
+    if (appState.courtesyPhone.item == "none" && selectedItemValue.toLowerCase().includes("phone")) {
+        //Add a new row
+        $("#borrowItems").append(newRow);
+        //Update the appState
+        appState.courtesyPhone.item = selectedItemValue;
+        appState.courtesyPhone.bond = selectedItemBond;
+        //Update the "bond" element
+        if ($("#customerType").is(":checked")) {
+            $("#bond").val(appState.courtesyPhone.bond + appState.courtesyCharger.bond);
+        } else {
+            $("#bond").val(0);
+        }
+    } else if (appState.courtesyCharger.item == "none" && selectedItemValue.toLowerCase().includes("charger")) {
+        $("#borrowItems").append(newRow);
+        //Update the appState
+        appState.courtesyCharger.item = selectedItemValue;
+        appState.courtesyCharger.bond = selectedItemBond;
 
-		//Update the "bond" element
-		if($('#customerType').is(':checked')){
-			$('#bond').val(appState.courtesyPhone.bond + appState.courtesyCharger.bond);
-		} else {
-			$('#bond').val(0);
-		}
-	} else {
-		alert("The item was already added");
-	}
-	
+        //Update the "bond" element
+        if ($("#customerType").is(":checked")) {
+            $("#bond").val(appState.courtesyPhone.bond + appState.courtesyCharger.bond);
+        } else {
+            $("#bond").val(0);
+        }
+    } else {
+        alert("The item was already added");
+    }
 });
 
 //Click "Remove" button Event
-$('#removeBtn').click(function(e){
-	//Prevent all default actions attached to this button.
-	e.preventDefault();
+$("#removeBtn").click(function (e) {
+    //Prevent all default actions attached to this button.
+    e.preventDefault();
 
-	//Remove all added rows that have the classname = "newSelectedItem"
-	$('.newSelectedItem').remove();
+    //Remove all added rows that have the classname = "newSelectedItem"
+    $(".newSelectedItem").remove();
 
-	//Update the appState
-	appState.courtesyPhone = {item: 'none', bond: 0};
-	appState.courtesyCharger = {item: 'none', bond: 0};
+    //Update the appState
+    appState.courtesyPhone = { item: "none", bond: 0 };
+    appState.courtesyCharger = { item: "none", bond: 0 };
 
-	//Update the "bond" element
-	$('#bond').val(0);
+    //Update the "bond" element
+    $("#bond").val(0);
 });
 
 //Change "customer type" event
-$('#customerType').click(function() {
-	appState.customerType = 'customer';
-	$('#bond').val(appState.courtesyPhone.bond + appState.courtesyCharger.bond);
+$("#customerType").click(function () {
+    appState.customerType = "customer";
+    $("#bond").val(appState.courtesyPhone.bond + appState.courtesyCharger.bond);
 });
 
-$('#businessType').click(function() {
-	appState.customerType = 'business';
-	$('#bond').val(0)
+$("#businessType").click(function () {
+    appState.customerType = "business";
+    $("#bond").val(0);
 });
 
-//Currency set
-$("input[data-type='currency']").on({
-    keyup: function() {
-      formatCurrency($(this));
-    },
-    blur: function() { 
-      formatCurrency($(this), "blur");
-    }
-});
 
-function formatNumber(n) {
-  // format number 1000000 to 1,234,567
-  return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-}
-
-
-function formatCurrency(input, blur) {
-  // appends $ to value, validates decimal side
-  // and puts cursor back in right position.
-  
-  // get input value
-  var input_val = input.val();
-  
-  // don't validate empty input
-  if (input_val === "") { return; }
-  
-  // original length
-  var original_len = input_val.length;
-
-  // initial caret position 
-  var caret_pos = input.prop("selectionStart");
-    
-  // check for decimal
-  if (input_val.indexOf(".") >= 0) {
-
-    // get position of first decimal
-    // this prevents multiple decimals from
-    // being entered
-    var decimal_pos = input_val.indexOf(".");
-
-    // split number by decimal point
-    var left_side = input_val.substring(0, decimal_pos);
-    var right_side = input_val.substring(decimal_pos);
-
-    // add commas to left side of number
-    left_side = formatNumber(left_side);
-
-    // validate right side
-    right_side = formatNumber(right_side);
-    
-    // On blur make sure 2 numbers after decimal
-    if (blur === "blur") {
-      right_side += "00";
-    }
-    
-    // Limit decimal to only 2 digits
-    right_side = right_side.substring(0, 2);
-
-    // join number by .
-    input_val = "$" + left_side + "." + right_side;
-
-  } else {
-    // no decimal entered
-    // add commas to number
-    // remove all non-digits
-    input_val = formatNumber(input_val);
-    input_val = "$" + input_val;
-    
-    // final formatting
-    if (blur === "blur") {
-      input_val += ".00";
-    }
-  }
-  
-  // send updated string to input
-  input.val(input_val);
-
-  // put caret back in the right position
-  var updated_len = input_val.length;
-  caret_pos = updated_len - original_len + caret_pos;
-  input[0].setSelectionRange(caret_pos, caret_pos);
-}
 
 //Total + GST Calculation
-$('#addBtn, #removeBtn').click(function () {
-	var bondValue = $('#bond').val();
-	var serviceValue = $('#serviceFee').val();
+$("#addBtn, #removeBtn").click(function () {
+    var bondValue = $("#bond").val();
+    var serviceValue = $("#serviceFee").val();
 
-	var totalPrice = ((+bondValue) + (+serviceValue));
-	var fullGST = (totalPrice / 20) * 3;
-	var completePrice = ((+totalPrice) + (+fullGST));
+    var totalPrice = +bondValue + +serviceValue;
+    var fullGST = (totalPrice / 20) * 3;
+    var completePrice = +totalPrice + +fullGST;
 
-	$('#total').val(totalPrice);
-	$('#GST').val(fullGST);
-	$('#total_With_GST').val(completePrice);
+    $("#total").val(totalPrice);
+    $("#GST").val(fullGST);
+    $("#total_With_GST").val(completePrice);
 });
 
-$('#customerType, #businessType, #warranty').change(function() {
-	var bondValue = $('#bond').val();
-	var serviceValue = $('#serviceFee').val();
+$("#customerType, #businessType, #warranty").change(function () {
+    var bondValue = $("#bond").val();
+    var serviceValue = $("#serviceFee").val();
 
-	var totalPrice = ((+bondValue) + (+serviceValue));
-	var fullGST = (totalPrice / 20) * 3;
-	var completePrice = ((+totalPrice) + (+fullGST));
+    var totalPrice = +bondValue + +serviceValue;
+    var fullGST = (totalPrice / 20) * 3;
+    var completePrice = +totalPrice + +fullGST;
 
-	$('#total').val(totalPrice);
-	$('#GST').val(fullGST);
-	$('#total_With_GST').val(completePrice);
+    $("#total").val(totalPrice);
+    $("#GST").val(fullGST);
+    $("#total_With_GST").val(completePrice);
 });
+
+//Disable warranty if purchase date is greater than 24 months
+$("#purchaseDate").change(function () {
+    var date = new Date();
+    var day = date.getDate() > 9 ? date.getDate() : "0" + date.getDate();
+    var month = date.getMonth() + 1 > 9 ? date.getMonth() + 1 : "0" + (date.getMonth() + 1);
+
+    //Warrenty Year
+    var warrantyYear = date.getFullYear() - 2;
+
+    //Current date and the current date two years ago stored as variables
+    var fullWarrantyYear = warrantyYear + "-" + month + "-" + day;
+    var purchaseDate = $("#purchaseDate").val();
+
+    //If the purchase date was 24 months or greater disable the warranty
+    if (purchaseDate <= fullWarrantyYear) {
+        $("#warranty").prop("disabled", true);
+        $("#warranty").prop("checked", false);
+        $("#serviceFee").val("85.00");
+    } else {
+        $("#warranty").prop("disabled", false);
+    }
+});
+
 
 //Get the current date and set it as the maximum possible value for the purchase date input box.
-$('#submitBtn').click(function () {
+$("#submitBtn").click(function () {
     var date = new Date();
-    var day = date.getDate()>9?date.getDate():"0"+date.getDate();
-    var month = (date.getMonth()+1)>9?(date.getMonth()+1):"0"+(date.getMonth()+1);
+    var day = date.getDate() > 9 ? date.getDate() : "0" + date.getDate();
+    var month = date.getMonth() + 1 > 9 ? date.getMonth() + 1 : "0" + (date.getMonth() + 1);
     var year = date.getFullYear();
 
     //Full date in one variable
-    var fullDate = (year + "-" + month + "-" + day)
+    var fullDate = year + "-" + month + "-" + day;
 
-    $("#purchaseDate").attr('max', fullDate);
+    $("#purchaseDate").attr("max", fullDate);
 
-    var end = $('#purchaseDate').val();
-    $("#repairDate").attr('min', end);
-    $("#repairDate").attr('max', fullDate);
+    var end = $("#purchaseDate").val();
+    $("#repairDate").attr("min", end);
+    $("#repairDate").attr("max", fullDate);
 });
 
 //Updates when reset button is clicked
-$('#resetBtn').click(function () {
-	//Remove all added rows that have the classname = "newSelectedItem"
-	$('.newSelectedItem').remove();
+$("#resetBtn").click(function () {
+    //Remove all added rows that have the classname = "newSelectedItem"
+    $(".newSelectedItem").remove();
 
-	//Update the appState
-	appState.courtesyPhone = {item: 'none', bond: 0};
-	appState.courtesyCharger = {item: 'none', bond: 0};
+    //Update the appState
+    appState.courtesyPhone = { item: "none", bond: 0 };
+    appState.courtesyCharger = { item: "none", bond: 0 };
 });
 
 //JQUERY: FAQ SCRIPTS
-let proxy = 'https://cors-anywhere.herokuapp.com/';
-let url = 'http://danieldangs.com/itwd6408/json/faqs.json';
+let proxy = "https://cors-anywhere.herokuapp.com/";
+let url = "http://danieldangs.com/itwd6408/json/faqs.json";
 
 //User Jquery function "getJSON" to query this json file.
 $.getJSON(
-	proxy + url,//send request to this url to get Json file
-	function(data){
-		//Loop through all questions and extract them and
-		//Display them on webpage
-		$.each(data, function(i, question){//i: index, question
-			//Extract question and answer
-			let content =`
+    proxy + url, //send request to this url to get Json file
+    function (data) {
+        //Loop through all questions and extract them and
+        //Display them on webpage
+        $.each(data, function (i, question) {
+            //i: index, question
+            //Extract question and answer
+            let content = `
 				<div class="col-12 col-md-6 bg-warning border border-dark">
 					
 						<h4>${question.question}</h4>
@@ -259,79 +200,76 @@ $.getJSON(
 					
 				
 				`;
-				//append this question to the list
-				$('#questions').append(content);
-		});
-	}//json file will be returned in "data"
+            //append this question to the list
+            $("#questions").append(content);
+        });
+    } //json file will be returned in "data"
 );
 
 //Search function
-$('#search-box').on('keyup', function(){
-	//Get entered keywords
-	let keywords = $(this).val().toLowerCase();
-	//Loop through all questions/answers and find if this question/answer
-	//contain the keyword? If yes, if not, hide it.
+$("#search-box").on("keyup", function () {
+    //Get entered keywords
+    let keywords = $(this).val().toLowerCase();
+    //Loop through all questions/answers and find if this question/answer
+    //contain the keyword? If yes, if not, hide it.
 
-	$('#questions div').filter(function(){
-		$(this).toggle($(this).html().toLowerCase().indexOf(keywords) > -1);
-	});
+    $("#questions div").filter(function () {
+        $(this).toggle($(this).html().toLowerCase().indexOf(keywords) > -1);
+    });
 });
 
-
 //Initially hide all advanced
-$('.content-demo-area div').hide();
-
+$(".content-demo-area div").hide();
 
 //Loop through all buttons and add "click" event to each of them
 //and also the logic: hide all content sections and show only the according
 //highlight background the clicked button
-$('.btn-demo-area button').on('click', function(){
-	//Set all buttons background to white
-	$('.btn-demo-area button').css('background-color', 'white');
+$(".btn-demo-area button").on("click", function () {
+    //Set all buttons background to white
+    $(".btn-demo-area button").css("background-color", "white");
 
-	//Set the clicked button background to "orange" color
-	$(this).css('background-color', 'orange');
+    //Set the clicked button background to "orange" color
+    $(this).css("background-color", "orange");
 
-	//Hide all the content areas
-	$('.content-demo-area div').hide();
+    //Hide all the content areas
+    $(".content-demo-area div").hide();
 
-	//Show only the content area matching to the clicked button
-	$('.content-demo-area div').eq($(this).index()).show(1000);
+    //Show only the content area matching to the clicked button
+    $(".content-demo-area div").eq($(this).index()).show(1000);
 });
 
 //Upload Image
 const image_input = document.querySelector("#image-input");
 
-image_input.addEventListener("change", function() {
-  const reader = new FileReader();
-  reader.addEventListener("load", () => {
-    const uploaded_image = reader.result;
-    document.querySelector("#display-image").style.backgroundImage = `url(${uploaded_image})`;
-  });
-  reader.readAsDataURL(this.files[0]);
+image_input.addEventListener("change", function () {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => {
+        const uploaded_image = reader.result;
+        document.querySelector("#display-image").style.backgroundImage = `url(${uploaded_image})`;
+    });
+    reader.readAsDataURL(this.files[0]);
 });
 
-
 //Use Local Storage API to store and retrieve the above preferences: bg-color & font-size
-		//On client side and store it permanently
-		//Link: LocalStorage API: https://www.w3schools.com/jsref/prop_win_localstorage.asp
-		$('#colorOption').change(function(){
-			let selectedColor = $(this).find(":selected").val();
-			$('#customization-card').css('background-color', selectedColor);
-			localStorage.setItem('color-preference', selectedColor);
-		});
-		
-		//Font size
-		$('#sizeOption').change(function(){
-			let selectedSize = $(this).find(":selected").val();
-			$('#customization-card').css('font-size', selectedSize);
-			localStorage.setItem('font-preference', selectedSize);
-		});
-		
-		//Retrive stored preferences
-		$('#customization-card').css('background-color', localStorage.getItem('color-preference'));
-		$('#customization-card').css('font-size', localStorage.getItem('font-preference'));
-		
-		//Use Session Storage API to store and retrieve the above preferences: bg-color & font-size
-		//On client side and store temporarily, will be cleared when the tab or window is closed.
-		//Link: SessionStorage API: https://www.w3schools.com/jsref/prop_win_sessionstorage.asp
+//On client side and store it permanently
+//Link: LocalStorage API: https://www.w3schools.com/jsref/prop_win_localstorage.asp
+$("#colorOption").change(function () {
+    let selectedColor = $(this).find(":selected").val();
+    $("#customization-card").css("background-color", selectedColor);
+    localStorage.setItem("color-preference", selectedColor);
+});
+
+//Font size
+$("#sizeOption").change(function () {
+    let selectedSize = $(this).find(":selected").val();
+    $("#customization-card").css("font-size", selectedSize);
+    localStorage.setItem("font-preference", selectedSize);
+});
+
+//Retrive stored preferences
+$("#customization-card").css("background-color", localStorage.getItem("color-preference"));
+$("#customization-card").css("font-size", localStorage.getItem("font-preference"));
+
+//Use Session Storage API to store and retrieve the above preferences: bg-color & font-size
+//On client side and store temporarily, will be cleared when the tab or window is closed.
+//Link: SessionStorage API: https://www.w3schools.com/jsref/prop_win_sessionstorage.asp
