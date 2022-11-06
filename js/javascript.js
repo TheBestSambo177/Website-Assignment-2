@@ -337,4 +337,34 @@ $("#customization-card").css("font-size", localStorage.getItem("font-preference"
        $(ui.draggable).detach().css({top: 0,left: 0}).appendTo(this);
      }
   })
+
+
+
+//Map
+$('svg path').each(function(index, item) {
+    var id = $(item).attr('id');
+        
+    $('svg #' + id).on('click', function(e) {
+        var id = $(e.currentTarget).attr('id');
+        $('svg path').removeClass('active');
+        $(e.currentTarget).addClass('active');
+        window.alert(id + ' Clicked');
+    });
+});
+
+//Geolocation
+let x = document.getElementById("geoLocation");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  x.innerHTML = "Latitude: " + position.coords.latitude + 
+    "<br>Longitude: " + position.coords.longitude;
+}  
   

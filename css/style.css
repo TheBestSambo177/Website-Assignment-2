@@ -52,3 +52,12 @@ background-size: 100% 100%;
 background: url('https://c8.alamy.com/comp/JEKRH5/black-cell-phone-charger-cord-on-a-white-surface-cell-phone-charger-JEKRH5.jpg');
 background-size: 100% 100%;
 }
+
+svg path:hover {
+  fill: #65302a;
+  cursor: pointer;
+}
+
+svg path.active {
+  fill: #65302a;
+}
