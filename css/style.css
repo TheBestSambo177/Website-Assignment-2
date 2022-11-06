@@ -5,3 +5,50 @@
   background-position: center;
   background-size: cover;
 }
+
+.drag-area {
+  width: 450px;
+  height: 450px;
+  display: inline-block;
+  vertical-align: top;
+  border: 1px solid black;
+}
+
+.drop-area {
+  text-align: center;
+  color: blue;
+}
+
+.box {
+  width: 80px;
+  height: 80px;
+  margin: 10px;
+  background: green;
+  color: white;
+  text-align: center;
+}
+
+.result {
+display: inline-block;
+margin-left: 30px;
+}
+
+.iphone-image {
+background: url('https://images.macrumors.com/t/9r84bU_ZTOTrUixxwhjHUFsAvD4=/800x0/smart/article-new/2017/09/iphonexdesign.jpg?lossy');
+background-size: 100% 100%;
+}
+
+.samsung-image {
+background: url('https://images.samsung.com/is/image/samsung/levant/galaxy-s10/gallery/levant-galaxy-s10-sm-g975-sm-g975fzkdmid-lprismblack-thumb-145214816?$320_320_PNG$');
+background-size: 100% 100%;
+}
+
+.galaxy-image {
+background: url('https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1641944535-samsung-galaxy-s21-fe-1641944520.jpg?crop=1xw:1xh;center,top&resize=480:*');
+background-size: 100% 100%;
+}
+
+.charger-image {
+background: url('https://c8.alamy.com/comp/JEKRH5/black-cell-phone-charger-cord-on-a-white-surface-cell-phone-charger-JEKRH5.jpg');
+background-size: 100% 100%;
+}

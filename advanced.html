@@ -33,30 +33,40 @@
 			</div>
 		</div>
 	</header>
-
-    <h1>Advanced JS: File Upload</h1>
-                    <input type="file" id="image-input" accept="image/jpeg, image/png, image/jpg">
-                    <div id="display-image"></div>
-
-					
+				
 	<main>
         <div class="row">
             <div class="col-12 col-lg-3 row btn-demo-area h-50">
-                <button class="col-4 col-lg-12">Remember User Preferences</button>
-                <button class="col-4 col-lg-12">File Upload</button>
-                <button class="col-4 col-lg-12">DEMO 3</button>
-                <button class="col-4 col-lg-12">DEMO 4</button>
-                <button class="col-4 col-lg-12">DEMO 5</button>
+                <button class="col-4 col-lg-12" id="content-btn-1">Remember User Preferences</button>
+                <button class="col-4 col-lg-12" id="content-btn-2">File Upload</button>
+                <button class="col-4 col-lg-12" id="content-btn-3">Drag and Drop</button>
+                <button class="col-4 col-lg-12" id="content-btn-4">DEMO 4</button>
+                <button class="col-4 col-lg-12" id="content-btn-5">DEMO 5</button>
             </div>
             <div class="col-12 col-lg-9 bg-dark content-demo-area" style="min-height: 100vh;">
-                <div class="bg-primary" style="min-height: 100vh;">Remember User Preferences</div>
-                <div class="bg-secondary" style="min-height: 100vh; "><h2>File Upload</h2> 
-					<input type="file" id="image-input" accept="image/jpeg, image/png, image/jpg">
-								
+                <div class="bg-primary" id="content-area-1" style="min-height: 100vh;"></div>
+                <div class="bg-secondary" id="content-area-2" style="min-height: 100vh; ">
+					<h1>Advanced JS: File Upload</h1>
+                    <input type="file" id="image-input" accept="image/jpeg, image/png, image/jpg">
+                    <div id="display-image"></div>
 				</div>
-                <div class="bg-warning" style="min-height: 100vh;">ADVANCED JS DEMO 3 HERE</div>
-                <div class="bg-danger" style="min-height: 100vh;">ADVANCED JS DEMO 4 HERE</div>
-                <div class="bg-success" style="min-height: 100vh;">ADVANCED JS DEMO 5 HERE</div>
+                <div class="bg-warning" id="content-area-3" style="min-height: 100vh;">
+					<div class="drag-area">
+						<div class="drop-area">Available Courtesy Phones</div>
+						<div class="box iphone-image">iPhone</div>
+						<div class="box samsung-image">Samsung A6+</div>
+						<div class="box galaxy-image">Galaxy Z</div>
+						<div class="box charger-image">Charger</div>
+					  </div>
+					<div class="drag-area">
+						<div class="drop-area">Your Selection</div>
+					</div>
+					  
+					<!--Display the outcome-->
+					<div class="result">-</div>
+				</div>
+                <div class="bg-danger" id="content-area-4" style="min-height: 100vh;">ADVANCED JS DEMO 4 HERE</div>
+                <div class="bg-success" id="content-area-5" style="min-height: 100vh;">ADVANCED JS DEMO 5 HERE</div>
             </div>
         </div>
 	</main>
@@ -71,6 +81,7 @@
 	
 	<!--Embed JQUERY library-->
 	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
 	<!--Embed JS-->
 	<script src="js/javascript.js"></script>

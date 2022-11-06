@@ -219,7 +219,12 @@ $("#search-box").on("keyup", function () {
 });
 
 //Initially hide all advanced
-$(".content-demo-area div").hide();
+//$(".content-demo-area div ").hide();
+$("#content-area-1").hide();
+$("#content-area-2").hide();
+$("#content-area-3").hide();
+$("#content-area-4").hide();
+$("#content-area-5").hide();
 
 //Loop through all buttons and add "click" event to each of them
 //and also the logic: hide all content sections and show only the according
@@ -232,11 +237,37 @@ $(".btn-demo-area button").on("click", function () {
     $(this).css("background-color", "orange");
 
     //Hide all the content areas
-    $(".content-demo-area div").hide();
+    //$(".content-demo-area div").hide();
+    $("#content-area-1").hide();
+    $("#content-area-2").hide();
+    $("#content-area-3").hide();
+    $("#content-area-4").hide();
+    $("#content-area-5").hide();
 
     //Show only the content area matching to the clicked button
-    $(".content-demo-area div").eq($(this).index()).show(1000);
+    //$(".content-demo-area div").eq($(this).index()).show(1000);
+    //$("#content-area-5").eq($(this).index()).show(1000);
 });
+
+$("#content-btn-1").on("click", function () {
+    $("#content-area-1").show(1000);
+})
+
+$("#content-btn-2").on("click", function () {
+    $("#content-area-2").show(1000);
+})
+
+$("#content-btn-3").on("click", function () {
+    $("#content-area-3").show(1000);
+})
+
+$("#content-btn-4").on("click", function () {
+    $("#content-area-4").show(1000);
+})
+
+$("#content-btn-5").on("click", function () {
+    $("#content-area-5").show(1000);
+})
 
 //Upload Image
 const image_input = document.querySelector("#image-input");
@@ -273,3 +304,37 @@ $("#customization-card").css("font-size", localStorage.getItem("font-preference"
 //Use Session Storage API to store and retrieve the above preferences: bg-color & font-size
 //On client side and store temporarily, will be cleared when the tab or window is closed.
 //Link: SessionStorage API: https://www.w3schools.com/jsref/prop_win_sessionstorage.asp
+
+
+
+//Drag and Drop
+//-------------------------------------		
+//Use JQuery to manipulate CSS style
+//-------------------------------------		
+  $(".box" ).draggable({
+    scope: 'demoBox',
+    revertDuration: 100,
+    start: function( event, ui ) {
+      //Reset
+      $( ".box" ).draggable( "option", "revert", true );
+      $('.result').html('-');
+    }
+  });
+  
+  $(".drag-area" ).droppable({
+     scope: 'demoBox',
+     drop: function( event, ui ) {
+       let area = $(this).find(".drop-area").html();
+       let box = $(ui.draggable).html();     
+       $( ".box" ).draggable( "option", "revert", false );
+       
+       //Display action in text
+       $('.result').html("[Action] <b>" + box + "</b>" +
+                         " dropped on " + 
+                         "<b>" + area + "</b>");
+       
+       //Re-align item
+       $(ui.draggable).detach().css({top: 0,left: 0}).appendTo(this);
+     }
+  })
+  
