@@ -41,33 +41,6 @@ class Booking {
     }
 
     //Methods
-    updateBond() {
-        if (this.customerType == "business") {
-            this.bondAmount = 0;
-        } else {
-            this.bondAmount = (this.phone_bond + this.charger_bond);
-        };
-        $("#bond").val("$" + this.bondAmount);
-    }
-
-    updateServiceFee() {
-        if (this.warranty == false) {
-            this.service_fee = 85;
-        } else {
-            this.service_fee = 0;
-        };
-        $("#serviceFee").val("$" + this.service_fee);
-    }
-
-    updateTotals() {
-        this.updateServiceFee();
-        this.totalAmount = (this.bondAmount + this.service_fee);
-        $("#total").val("$" + this.totalAmount);
-        this.gstAmount = (this.totalAmount * .15);
-        $("#GST").val("$" + this.gstAmount);
-        this.totalGST = (this.totalAmount + this.gstAmount);
-        $("#total_With_GST").val("$" + this.totalGST);
-    }
 
     updateProperties() {
         //Name
@@ -98,6 +71,11 @@ class Booking {
         this.itemTable = document.getElementById("borrowItems").outerHTML;
         //Totals
         this.bondAmount = document.getElementById("bond").value;
+        this.serviceFee = document.getElementById("serviceFee").value;
+        this.totalAmount = document.getElementById("total").value;
+        this.gstAmount = document.getElementById("GST").value;
+        this.totalGST = document.getElementById("total_With_GST").value;
+
     }
 }
 
@@ -440,7 +418,6 @@ $("#formData").submit(function(e) {
     //Open the repair-booking page
     window.open("repair.html");
 })
-
 
 //Repair Page
 function populateForm() {
