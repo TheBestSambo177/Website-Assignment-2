@@ -33,7 +33,7 @@
         </header>
 
         <main>
-            <form>
+            <form id="formData"> <!--method="POST" action="repair.html-->
                 <div class="container-fluid">
                     <div class="row">
                         <!--Customer detail-->
@@ -213,7 +213,7 @@
                                     <div class="row mb-3">
                                         <label for="description" class="col-sm-4 col-form-label">Description: *</label>
                                         <div class="col-sm-8">
-                                            <textarea class="form-control" id="description" rows="8" style="resize: none;"></textarea>
+                                            <textarea class="form-control" id="description" rows="8" style="resize: none;" required></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -326,6 +326,6 @@
         <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 
         <!--Embed JS-->
-        <script src="js/javascript.js"></script>
+        <script src="js/javascript.js" onload="init()"></script>
     </body>
 </html>

@@ -1,3 +1,106 @@
+//Create a 'Booking' class to populate the booking form
+class Booking {
+    //Constructor
+    constructor() {
+        //Personal Customer information
+        this.customerType = "consumer";//Default value = customer
+        this.title = "";
+        this.firstName = "";
+        this.lastName = "";
+        this.street = "";
+        this.suburb = "";
+        this.city = "";
+        this.postCode = "";
+        this.phone = "";
+        this.email = "";
+        //Repair Job
+        this.jobNo = "";
+        this.invDate = "";
+        this.payDueDate = "";
+        //Repair Details
+        this.purcDate = "";
+        this.repDate = "";
+        this.warranty = false;//False: not under warranty, true: under warranty
+        this.imeiNo = "";
+        this.deviceMake = "";
+        this.modelNo = "";
+        this.faultCat = "";
+        this.faultDesc = "";
+        //Courtesy Loan Device Details
+        this.inputTable = "";
+        this.courtesy_phone = "";//default: "" = no phone loan
+        this.phone_bond = 0;
+        this.courtesy_charger = "";//default "" = no charger loan
+        this.charger_bond = 0;
+        //Totals
+        this.bondAmount = 0;
+        this.serviceFee = 85;
+        this.totalAmount = 0;
+        this.gstAmount = 0;
+        this.totalGST = 0;
+    }
+
+    //Methods
+    updateBond() {
+        if (this.customerType == "business") {
+            this.bondAmount = 0;
+        } else {
+            this.bondAmount = (this.phone_bond + this.charger_bond);
+        };
+        $("#bond").val("$" + this.bondAmount);
+    }
+
+    updateServiceFee() {
+        if (this.warranty == false) {
+            this.service_fee = 85;
+        } else {
+            this.service_fee = 0;
+        };
+        $("#serviceFee").val("$" + this.service_fee);
+    }
+
+    updateTotals() {
+        this.updateServiceFee();
+        this.totalAmount = (this.bondAmount + this.service_fee);
+        $("#total").val("$" + this.totalAmount);
+        this.gstAmount = (this.totalAmount * .15);
+        $("#GST").val("$" + this.gstAmount);
+        this.totalGST = (this.totalAmount + this.gstAmount);
+        $("#total_With_GST").val("$" + this.totalGST);
+    }
+
+    updateProperties() {
+        //Name
+        this.title = document.getElementById("title").value;
+        this.firstName = document.getElementById("fName").value;
+        this.lastName = document.getElementById("lName").value;
+        this.street = document.getElementById("street").value;
+        this.suburb = document.getElementById("suburb").value;
+        this.city = document.getElementById("city").value;
+        this.postCode = document.getElementById("postalCode").value;
+        this.phoneNo = document.getElementById("phoneNumber").value;
+        this.email = document.getElementById("email").value;
+        //Repair Job
+        localStorage.setItem("jobNo", +localStorage.getItem("jobNo") + 1)
+        this.jobNo = localStorage.getItem("jobNo")
+        let dateTime = new Date();
+        this.invDate = (dateTime.getFullYear()) + "/" + (dateTime.getMonth()) + "/" + (dateTime.getDate()) + " " + (dateTime.getHours()) + ":" + (dateTime.getMinutes()) + ":" + (dateTime.getSeconds());
+        this.payDueDate = ((dateTime.getFullYear()) + "/" + (dateTime.getMonth()) + "/" + (dateTime.getDate() + 5));
+        //Repair Details
+        this.purcDate = document.getElementById("purchaseDate").value;
+        this.repDate = document.getElementById("repairDate").value;
+        this.imeiNo = document.getElementById("IMEI_Number").value;
+        this.deviceMake = document.getElementById("make").value;
+        this.modelNo = document.getElementById("modelNumber").value;
+        this.faultCat = document.getElementById("faultCategory").value;
+        this.faultDesc = document.getElementById("description").value;
+        //Courtesy Loan Device Details
+        this.itemTable = document.getElementById("borrowItems").outerHTML;
+        //Totals
+        this.bondAmount = document.getElementById("bond").value;
+    }
+}
+
 //Sets the service fee at the start
 $("#serviceFee").val("85.00");
 
@@ -7,7 +110,7 @@ $("#warranty").change(function () {
         $("#serviceFee").val("0.00");
     } else {
         $("#serviceFee").val("85.00");
-    }
+    };
 });
 
 let courtesyList = [
@@ -269,17 +372,7 @@ $("#content-btn-5").on("click", function () {
     $("#content-area-5").show(1000);
 })
 
-//Upload Image
-const image_input = document.querySelector("#image-input");
 
-image_input.addEventListener("change", function () {
-    const reader = new FileReader();
-    reader.addEventListener("load", () => {
-        const uploaded_image = reader.result;
-        document.querySelector("#display-image").style.backgroundImage = `url(${uploaded_image})`;
-    });
-    reader.readAsDataURL(this.files[0]);
-});
 
 //Use Local Storage API to store and retrieve the above preferences: bg-color & font-size
 //On client side and store it permanently
@@ -304,40 +397,6 @@ $("#customization-card").css("font-size", localStorage.getItem("font-preference"
 //Use Session Storage API to store and retrieve the above preferences: bg-color & font-size
 //On client side and store temporarily, will be cleared when the tab or window is closed.
 //Link: SessionStorage API: https://www.w3schools.com/jsref/prop_win_sessionstorage.asp
-
-
-
-//Drag and Drop
-//-------------------------------------		
-//Use JQuery to manipulate CSS style
-//-------------------------------------		
-  $(".box" ).draggable({
-    scope: 'demoBox',
-    revertDuration: 100,
-    start: function( event, ui ) {
-      //Reset
-      $( ".box" ).draggable( "option", "revert", true );
-      $('.result').html('-');
-    }
-  });
-  
-  $(".drag-area" ).droppable({
-     scope: 'demoBox',
-     drop: function( event, ui ) {
-       let area = $(this).find(".drop-area").html();
-       let box = $(ui.draggable).html();     
-       $( ".box" ).draggable( "option", "revert", false );
-       
-       //Display action in text
-       $('.result').html("[Action] <b>" + box + "</b>" +
-                         " dropped on " + 
-                         "<b>" + area + "</b>");
-       
-       //Re-align item
-       $(ui.draggable).detach().css({top: 0,left: 0}).appendTo(this);
-     }
-  })
-
 
 
 //Map
@@ -367,4 +426,61 @@ function showPosition(position) {
   x.innerHTML = "Latitude: " + position.coords.latitude + 
     "<br>Longitude: " + position.coords.longitude;
 }  
-  
+
+//Validation works, sends data to repair page
+$("#formData").submit(function(e) {
+    //Prevent the page from refreshing
+    e.preventDefault()
+    //Update the object property
+    myBooking.updateProperties();
+    //Send data from this page to "repair-booking" page
+    let myBookingData = JSON.stringify(myBooking);//Convert JSON/JS object to string
+    //Store this string into a Local Storage
+    localStorage.setItem("myBookingInput", myBookingData);
+    //Open the repair-booking page
+    window.open("repair.html");
+})
+
+
+//Repair Page
+function populateForm() {
+    //Get the data sent from index.html stored in local storage
+    let myBookingObj = JSON.parse(localStorage.getItem("myBookingInput"));
+    document.getElementById("name").innerHTML = (myBookingObj.title + ". " + myBookingObj.firstName + " " + myBookingObj.lastName);
+    document.getElementById("street").innerHTML = myBookingObj.street;
+    document.getElementById("suburb").innerHTML = (myBookingObj.suburb + ", " + myBookingObj.city + " " + myBookingObj.postCode);
+    document.getElementById("phoneNo").innerHTML = myBookingObj.phoneNo;
+    document.getElementById("email").innerHTML = myBookingObj.email;
+    //Repair Job
+    document.getElementById("jobNo").innerHTML = myBookingObj.jobNo;
+    document.getElementById("invDate").innerHTML = myBookingObj.invDate;
+    document.getElementById("payDueDate").innerHTML = myBookingObj.payDueDate;
+    //Repair Details
+    document.getElementById("purcDate").innerHTML = myBookingObj.purcDate;
+    document.getElementById("repDateTime").innerHTML = myBookingObj.repDate;
+    if (myBookingObj.warranty == true) {
+        document.getElementById("warranty").innerHTML = "Yes &#10004;";
+    } else {
+        document.getElementById("warranty").innerHTML = "No &#10006;";
+    };
+    document.getElementById("imeiNo").innerHTML = myBookingObj.imeiNo;
+    document.getElementById("deviceMake").innerHTML = myBookingObj.deviceMake;
+    document.getElementById("modelNo").innerHTML = myBookingObj.modelNo;
+    document.getElementById("faultCat").innerHTML = myBookingObj.faultCat;
+    document.getElementById("faultDesc").innerHTML = myBookingObj.faultDesc;
+    //Courtesy Loan Device Details
+    document.getElementById("itemTable").outerHTML = myBookingObj.itemTable;
+    //Totals
+    document.getElementById("bond").innerHTML = ("$" + myBookingObj.bondAmount);
+    document.getElementById("servFee").innerHTML = ("$" + myBookingObj.serviceFee);
+    document.getElementById("total").innerHTML = ("$" + myBookingObj.totalAmount);
+    document.getElementById("gst").innerHTML = ("$" + myBookingObj.gstAmount);
+    document.getElementById("totalGST").innerHTML = ("$" + myBookingObj.totalGST);
+    document.getElementById("amountTotal").innerHTML = ("$" + myBookingObj.totalGST);
+}
+
+function init() { 
+    //Create an object of this Booking class
+    myBooking = new Booking();
+    localStorage.setItem("jobNo", 0000)
+}

@@ -35,6 +35,17 @@
 	</header>
 				
 	<main>
+		<div class="col-12 col-lg-12 p-1" style="background-color:#6B9C6E;">
+			<h3>Statement of authenticity</h3>
+			<h6>I confirm that:</h6>
+			<ul>
+				<li>This is an original assessment and is entirely my own work.</li>
+				<li>It contains no material previously published or written by another person or myself except where
+					due acknowledgement is made in the text.</li>
+				<li>No material which to a substantial extent, has been submitted for any other academic course, is
+					included without acknowledgement.</li>
+			</ul>
+		</div>
         <div class="row">
             <div class="col-12 col-lg-3 row btn-demo-area h-50">
                 <button class="col-4 col-lg-12" id="content-btn-1">Geolocation</button>
@@ -295,6 +306,53 @@
 
 	<!--Embed JS-->
 	<script src="js/javascript.js"></script>
+
+	<!--Run scripts for advanced page, have to run in advanced page as it breaks the index page with them in the main js-->
+	<script>
+		//Upload Image
+		const image_input = document.querySelector("#image-input");
+
+		image_input.addEventListener("change", function () {
+			const reader = new FileReader();
+			reader.addEventListener("load", () => {
+				const uploaded_image = reader.result;
+				document.querySelector("#display-image").style.backgroundImage = `url(${uploaded_image})`;
+			});
+			reader.readAsDataURL(this.files[0]);
+		});
+
+		//Drag and Drop
+		//-------------------------------------		
+		//Use JQuery to manipulate CSS style
+		//-------------------------------------		
+		$(".box" ).draggable({
+			scope: 'demoBox',
+			revertDuration: 100,
+			start: function( event, ui ) {
+			//Reset
+			$( ".box" ).draggable( "option", "revert", true );
+			$('.result').html('-');
+			}
+		});
+		
+		$(".drag-area" ).droppable({
+			scope: 'demoBox',
+			drop: function( event, ui ) {
+			let area = $(this).find(".drop-area").html();
+			let box = $(ui.draggable).html();     
+			$( ".box" ).draggable( "option", "revert", false );
+			
+			//Display action in text
+			$('.result').html("[Action] <b>" + box + "</b>" +
+								" dropped on " + 
+								"<b>" + area + "</b>");
+			
+			//Re-align item
+			$(ui.draggable).detach().css({top: 0,left: 0}).appendTo(this);
+			}
+		})
+
+	</script>
     
 </body>
 </html>
