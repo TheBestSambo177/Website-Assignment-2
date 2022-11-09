@@ -3,7 +3,7 @@ class Booking {
     //Constructor
     constructor() {
         //Personal Customer information
-        this.customerType = "consumer";//Default value = customer
+        this.customerType = "consumer";
         this.title = "";
         this.firstName = "";
         this.lastName = "";
@@ -20,7 +20,7 @@ class Booking {
         //Repair Details
         this.purcDate = "";
         this.repDate = "";
-        this.warranty = false;//False: not under warranty, true: under warranty
+        this.warranty = false;
         this.imeiNo = "";
         this.deviceMake = "";
         this.modelNo = "";
@@ -28,9 +28,9 @@ class Booking {
         this.faultDesc = "";
         //Courtesy Loan Device Details
         this.inputTable = "";
-        this.courtesy_phone = "";//default: "" = no phone loan
+        this.courtesy_phone = "";
         this.phone_bond = 0;
-        this.courtesy_charger = "";//default "" = no charger loan
+        this.courtesy_charger = "";
         this.charger_bond = 0;
         //Totals
         this.bondAmount = 0;
@@ -409,42 +409,28 @@ function showPosition(position) {
 $("#formData").submit(function(e) {
     //Prevent the page from refreshing
     e.preventDefault()
-    //Update the object property
-    myBooking.updateProperties();
-    //Send data from this page to "repair-booking" page
-    let myBookingData = JSON.stringify(myBooking);//Convert JSON/JS object to string
-    //Store this string into a Local Storage
-    localStorage.setItem("myBookingInput", myBookingData);
-    //Open the repair-booking page
     window.open("repair.html");
 })
 
 //Repair Page
 function populateForm() {
-    //Get the data sent from index.html stored in local storage
+    //Retrive the data sent from index.html stored in local storage and replace the repair values
+    document.getElementById("nameInfo").innerHTML= localStorage.getItem("nameValue");
+    document.getElementById("street").innerHTML=localStorage.getItem("streetL");
+    document.getElementById("fullAddress").innerHTML=localStorage.getItem("full_Address");
+    document.getElementById("phoneNo").innerHTML=localStorage.getItem("phoneNumber");
+    document.getElementById("email").innerHTML=localStorage.getItem("emailAddress");
+
+    document.getElementById("purchaseDate").innerHTML=localStorage.getItem("purchaseValue");
+    document.getElementById("repairDateTime").innerHTML=localStorage.getItem("repairValue");
+    document.getElementById("warranty").innerHTML=localStorage.getItem("warrantyValue");
+    document.getElementById("imeiNo").innerHTML=localStorage.getItem("imeiValue");
+    document.getElementById("deviceMake").innerHTML=localStorage.getItem("makeValue");
+    document.getElementById("modelNo").innerHTML=localStorage.getItem("modelValue");
+    document.getElementById("faultCato").innerHTML=localStorage.getItem("faultValue");
+    document.getElementById("faultDesc").innerHTML=localStorage.getItem("descriptionValue");
+    
     let myBookingObj = JSON.parse(localStorage.getItem("myBookingInput"));
-    document.getElementById("name").innerHTML = (myBookingObj.title + ". " + myBookingObj.firstName + " " + myBookingObj.lastName);
-    document.getElementById("street").innerHTML = myBookingObj.street;
-    document.getElementById("suburb").innerHTML = (myBookingObj.suburb + ", " + myBookingObj.city + " " + myBookingObj.postCode);
-    document.getElementById("phoneNo").innerHTML = myBookingObj.phoneNo;
-    document.getElementById("email").innerHTML = myBookingObj.email;
-    //Repair Job
-    document.getElementById("jobNo").innerHTML = myBookingObj.jobNo;
-    document.getElementById("invDate").innerHTML = myBookingObj.invDate;
-    document.getElementById("payDueDate").innerHTML = myBookingObj.payDueDate;
-    //Repair Details
-    document.getElementById("purcDate").innerHTML = myBookingObj.purcDate;
-    document.getElementById("repDateTime").innerHTML = myBookingObj.repDate;
-    if (myBookingObj.warranty == true) {
-        document.getElementById("warranty").innerHTML = "Yes &#10004;";
-    } else {
-        document.getElementById("warranty").innerHTML = "No &#10006;";
-    };
-    document.getElementById("imeiNo").innerHTML = myBookingObj.imeiNo;
-    document.getElementById("deviceMake").innerHTML = myBookingObj.deviceMake;
-    document.getElementById("modelNo").innerHTML = myBookingObj.modelNo;
-    document.getElementById("faultCat").innerHTML = myBookingObj.faultCat;
-    document.getElementById("faultDesc").innerHTML = myBookingObj.faultDesc;
     //Courtesy Loan Device Details
     document.getElementById("itemTable").outerHTML = myBookingObj.itemTable;
     //Totals
@@ -457,7 +443,61 @@ function populateForm() {
 }
 
 function init() { 
-    //Create an object of this Booking class
-    myBooking = new Booking();
     localStorage.setItem("jobNo", 0000)
 }
+
+
+function saveData() {
+    //Name
+    var title = $('#title').val();
+    var firstName = $("#fName").val();
+    var lastName = $("#lName").val();
+    var fullName = (title + " " + firstName + " " + lastName);
+    
+    //Location
+    var street = $('#street').val();
+    var suburb = $('#suburb').val();
+    var city = $('#city').val();
+    var postcode = $('#postalCode').val();
+    var fullAddress = (suburb + ", " + city + " " + postcode);
+
+    //Contact Details
+    var phone = $('#phoneNumber').val();
+    var email = $('#email').val();
+
+    //Dates
+    var purchaseDate = $('#purchaseDate').val();
+    var repairDate = $('#repairDate').val();
+
+    //Warranty  
+    if ($('#warranty').is(':checked')) {
+        var warrantyText = $("#warranty").is(':checked');
+        var warrantyInfo = ("&#10004;"+ warrantyText);
+    } else {
+        var warrantyText = $("#warranty").is(':checked');
+        var warrantyInfo = ("&#10005;"+ warrantyText);
+    }
+    //Information
+    var IMEI = $("#IMEI_Number").val();
+    var phoneMake = $("#make").val();
+    var modelNum = $("#modelNumber").val();
+    var faultCategory = $("#faultCategory").val();
+    var addDescription = $("#description").val();
+
+    //Saves the data
+    localStorage.setItem("nameValue", fullName)
+    localStorage.setItem("streetL", street)
+    localStorage.setItem("full_Address", fullAddress)
+    localStorage.setItem("phoneNumber", phone)
+    localStorage.setItem("emailAddress", email)
+    localStorage.setItem("purchaseValue", purchaseDate)
+    localStorage.setItem("repairValue", repairDate)
+    localStorage.setItem("warrantyValue", warrantyInfo)
+    localStorage.setItem("imeiValue", IMEI)
+    localStorage.setItem("makeValue", phoneMake)
+    localStorage.setItem("modelValue", modelNum)
+    localStorage.setItem("faultValue", faultCategory)
+    localStorage.setItem("descriptionValue", addDescription)
+}
+
+//localStorage.setItem("jobNo", +localStorage.getItem("jobNo") + 1)
