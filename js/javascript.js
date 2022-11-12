@@ -430,16 +430,18 @@ function populateForm() {
     document.getElementById("faultCato").innerHTML=localStorage.getItem("faultValue");
     document.getElementById("faultDesc").innerHTML=localStorage.getItem("descriptionValue");
     
+    //Costs
+    document.getElementById("bond").innerHTML = localStorage.getItem("bondAmount");
+    document.getElementById("servFee").innerHTML = localStorage.getItem("service_Fee");
+    document.getElementById("total").innerHTML = localStorage.getItem("totalAmount");
+    document.getElementById("gst").innerHTML = localStorage.getItem("gstAmt");
+    document.getElementById("totalGST").innerHTML = localStorage.getItem("totalGstAmount");
+
     let myBookingObj = JSON.parse(localStorage.getItem("myBookingInput"));
     //Courtesy Loan Device Details
-    document.getElementById("itemTable").outerHTML = myBookingObj.itemTable;
-    //Totals
-    document.getElementById("bond").innerHTML = ("$" + myBookingObj.bondAmount);
-    document.getElementById("servFee").innerHTML = ("$" + myBookingObj.serviceFee);
-    document.getElementById("total").innerHTML = ("$" + myBookingObj.totalAmount);
-    document.getElementById("gst").innerHTML = ("$" + myBookingObj.gstAmount);
-    document.getElementById("totalGST").innerHTML = ("$" + myBookingObj.totalGST);
-    document.getElementById("amountTotal").innerHTML = ("$" + myBookingObj.totalGST);
+    //document.getElementById("itemTable").outerHTML = myBookingObj.itemTable;
+    
+    
 }
 
 function init() { 
@@ -484,6 +486,18 @@ function saveData() {
     var faultCategory = $("#faultCategory").val();
     var addDescription = $("#description").val();
 
+    //Costs
+    var bondAmt = $("bond").val();
+    var servicFee = $("serviceFee").val();
+    var totalAmt = $("total").val();
+
+    var gst = $("GST").val();
+    var total_With_GST = $("total_With_GST").val();
+
+
+    //Courtesy Loan Device Details
+    //this.itemTable = document.getElementById("borrowItems").outerHTML;
+
     //Saves the data
     localStorage.setItem("nameValue", fullName)
     localStorage.setItem("streetL", street)
@@ -498,6 +512,12 @@ function saveData() {
     localStorage.setItem("modelValue", modelNum)
     localStorage.setItem("faultValue", faultCategory)
     localStorage.setItem("descriptionValue", addDescription)
+
+    localStorage.setItem("bondAmount", bondAmt)
+    localStorage.setItem("service_Fee", servicFee)
+    localStorage.setItem("totalAmount", totalAmt)
+    localStorage.setItem("gstAmt", gst)
+    localStorage.setItem("totalGstAmount", total_With_GST)
 }
 
 //localStorage.setItem("jobNo", +localStorage.getItem("jobNo") + 1)
