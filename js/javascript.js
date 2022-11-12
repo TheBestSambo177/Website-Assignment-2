@@ -1,84 +1,3 @@
-//Create a 'Booking' class to populate the booking form
-class Booking {
-    //Constructor
-    constructor() {
-        //Personal Customer information
-        this.customerType = "consumer";
-        this.title = "";
-        this.firstName = "";
-        this.lastName = "";
-        this.street = "";
-        this.suburb = "";
-        this.city = "";
-        this.postCode = "";
-        this.phone = "";
-        this.email = "";
-        //Repair Job
-        this.jobNo = "";
-        this.invDate = "";
-        this.payDueDate = "";
-        //Repair Details
-        this.purcDate = "";
-        this.repDate = "";
-        this.warranty = false;
-        this.imeiNo = "";
-        this.deviceMake = "";
-        this.modelNo = "";
-        this.faultCat = "";
-        this.faultDesc = "";
-        //Courtesy Loan Device Details
-        this.inputTable = "";
-        this.courtesy_phone = "";
-        this.phone_bond = 0;
-        this.courtesy_charger = "";
-        this.charger_bond = 0;
-        //Totals
-        this.bondAmount = 0;
-        this.serviceFee = 85;
-        this.totalAmount = 0;
-        this.gstAmount = 0;
-        this.totalGST = 0;
-    }
-
-    //Methods
-
-    updateProperties() {
-        //Name
-        this.title = document.getElementById("title").value;
-        this.firstName = document.getElementById("fName").value;
-        this.lastName = document.getElementById("lName").value;
-        this.street = document.getElementById("street").value;
-        this.suburb = document.getElementById("suburb").value;
-        this.city = document.getElementById("city").value;
-        this.postCode = document.getElementById("postalCode").value;
-        this.phoneNo = document.getElementById("phoneNumber").value;
-        this.email = document.getElementById("email").value;
-        //Repair Job
-        localStorage.setItem("jobNo", +localStorage.getItem("jobNo") + 1)
-        this.jobNo = localStorage.getItem("jobNo")
-        let dateTime = new Date();
-        this.invDate = (dateTime.getFullYear()) + "/" + (dateTime.getMonth()) + "/" + (dateTime.getDate()) + " " + (dateTime.getHours()) + ":" + (dateTime.getMinutes()) + ":" + (dateTime.getSeconds());
-        this.payDueDate = ((dateTime.getFullYear()) + "/" + (dateTime.getMonth()) + "/" + (dateTime.getDate() + 5));
-        //Repair Details
-        this.purcDate = document.getElementById("purchaseDate").value;
-        this.repDate = document.getElementById("repairDate").value;
-        this.imeiNo = document.getElementById("IMEI_Number").value;
-        this.deviceMake = document.getElementById("make").value;
-        this.modelNo = document.getElementById("modelNumber").value;
-        this.faultCat = document.getElementById("faultCategory").value;
-        this.faultDesc = document.getElementById("description").value;
-        //Courtesy Loan Device Details
-        this.itemTable = document.getElementById("borrowItems").outerHTML;
-        //Totals
-        this.bondAmount = document.getElementById("bond").value;
-        this.serviceFee = document.getElementById("serviceFee").value;
-        this.totalAmount = document.getElementById("total").value;
-        this.gstAmount = document.getElementById("GST").value;
-        this.totalGST = document.getElementById("total_With_GST").value;
-
-    }
-}
-
 //Sets the service fee at the start
 $("#serviceFee").val("85.00");
 
@@ -437,11 +356,19 @@ function populateForm() {
     document.getElementById("gst").innerHTML = localStorage.getItem("gstAmt");
     document.getElementById("totalGST").innerHTML = localStorage.getItem("totalGstAmount");
 
-    let myBookingObj = JSON.parse(localStorage.getItem("myBookingInput"));
+    //Amount Due
+    document.getElementById("amountTotal").innerHTML = localStorage.getItem("totalGstAmount");
+
     //Courtesy Loan Device Details
-    //document.getElementById("itemTable").outerHTML = myBookingObj.itemTable;
+    document.getElementById("itemTable").outerHTML = localStorage.getItem("item_Table");
     
-    
+    //Job Number
+    document.getElementById("jobNo").innerHTML = localStorage.getItem("jobNo");
+
+    //Repair Dates
+    document.getElementById("invDate").innerHTML=localStorage.getItem("invoice_Date");
+    document.getElementById("payDueDate").innerHTML=localStorage.getItem("payment_Date");
+
 }
 
 function init() { 
@@ -470,6 +397,8 @@ function saveData() {
     //Dates
     var purchaseDate = $('#purchaseDate').val();
     var repairDate = $('#repairDate').val();
+    var invoice_Time = new Date($.now());
+    var payment_Time = new Date(new Date().getTime()+(5*24*60*60*1000));
 
     //Warranty  
     if ($('#warranty').is(':checked')) {
@@ -487,16 +416,20 @@ function saveData() {
     var addDescription = $("#description").val();
 
     //Costs
-    var bondAmt = $("bond").val();
-    var servicFee = $("serviceFee").val();
-    var totalAmt = $("total").val();
+    var bond_Amt = $("#bond").val();
+    var bondAmt = ("$" + bond_Amt);
+    var servic_Fee = $("#serviceFee").val();
+    var serviceFee = ("$" + servic_Fee);
+    var total_Amt = $("#total").val();
+    var totalAmt = ("$" + total_Amt);
+    var gst_val = $("#GST").val();
+    var gst = ("$" + gst_val);
+    var total_Amt_GST = $("#total_With_GST").val();
+    var total_With_GST = ("$" + total_Amt_GST);
 
-    var gst = $("GST").val();
-    var total_With_GST = $("total_With_GST").val();
-
-
+    
     //Courtesy Loan Device Details
-    //this.itemTable = document.getElementById("borrowItems").outerHTML;
+    var itemTable = document.getElementById("borrowItems").outerHTML;
 
     //Saves the data
     localStorage.setItem("nameValue", fullName)
@@ -506,18 +439,20 @@ function saveData() {
     localStorage.setItem("emailAddress", email)
     localStorage.setItem("purchaseValue", purchaseDate)
     localStorage.setItem("repairValue", repairDate)
+    localStorage.setItem("invoice_Date", invoice_Time)
+    localStorage.setItem("payment_Date", payment_Time)
     localStorage.setItem("warrantyValue", warrantyInfo)
     localStorage.setItem("imeiValue", IMEI)
     localStorage.setItem("makeValue", phoneMake)
     localStorage.setItem("modelValue", modelNum)
     localStorage.setItem("faultValue", faultCategory)
     localStorage.setItem("descriptionValue", addDescription)
-
     localStorage.setItem("bondAmount", bondAmt)
-    localStorage.setItem("service_Fee", servicFee)
+    localStorage.setItem("service_Fee", serviceFee)
     localStorage.setItem("totalAmount", totalAmt)
     localStorage.setItem("gstAmt", gst)
     localStorage.setItem("totalGstAmount", total_With_GST)
+    localStorage.setItem("item_Table", itemTable)
+    localStorage.setItem("jobNo", +localStorage.getItem("jobNo") + 1)
 }
 
-//localStorage.setItem("jobNo", +localStorage.getItem("jobNo") + 1)
